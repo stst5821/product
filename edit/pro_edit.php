@@ -51,13 +51,6 @@ catch(Exception $e)
     【 <?php print $pro_code; ?> 】
     <br>
     <br>
-    商品名<br>
-    【 <?php print $pro_name; ?> 】
-    <br>
-    <br>
-    価格<br>
-    【 <?php print $pro_price; ?> 】
-
     <form method="post" action="pro_edit_check.php">
         <input type="hidden" name="code" value="<?php print $pro_code; ?>">
 
@@ -66,10 +59,9 @@ catch(Exception $e)
         <br>
 
         価格<br>
-        <input type="text" name="name" style="width:50px" value="<?php print $pro_price; ?>">
-        <br>
+        <input type="text" name="price" style="width:50px" value="<?php print $pro_price; ?>">円<br>
 
-
+        <input type="submit" value="OK">
 
     </form>
 
