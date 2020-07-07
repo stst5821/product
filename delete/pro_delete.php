@@ -16,7 +16,8 @@
     <?php
 
 try {
-    $staff_code = $_POST['code'];
+
+    $pro_code = $_GET['procode']; //pro_listのinputラジオボタンで選択したスタッフ名のスタッフコードをここに入れている。
 
     $dsn = 'mysql:dbname=shop;host=localhost;charset=utf8';
     $user = 'root';
@@ -24,13 +25,16 @@ try {
     $dbh = new PDO ($dsn,$user,$password);
     $dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-    $sql = 'DELETE from mst_staff WHERE code=?';
+    $sql = 'select name from mst_product where code=?';
     $stmt = $dbh->prepare($sql);
-    $data[] = $staff_code;
-
+    $data[] = $pro_code; // $data[]を code=? の?に入れる。
     $stmt->execute($data);
 
+    $rec = $stmt->fetch(PDO::FETCH_ASSOC);
+    $pro_name = $rec['name'];
+
     $dbn = null;
+
 }
 catch(Exception $e) 
 {
@@ -40,11 +44,24 @@ catch(Exception $e)
 
 ?>
 
-    削除しました。<br>
+    商品削除<br>
+    <br>
+    商品コード<br>
+    【 <?php print $pro_code; ?> 】
+    <br>
+    商品名<br>
+    【 <?php print $pro_name; ?> 】
+    <br>
+    この商品を削除してよろしいですか？<br>
     <br>
 
-    <a href="../staff_list.php">戻る</a>
+    <form method="post" action="pro_delete_done.php">
+        <input type="hidden" name="code" value="<?php print $pro_code; ?>">
 
+        <input type="button" onclick="history.back()" value="戻る">
+        <input type="submit" value="OK">
+
+    </form>
 
 </body>
 

@@ -20,8 +20,6 @@ try {
     $pro_name = $_POST['name'];
     $pro_price = $_POST['price'];
 
-    print_r($_POST);
-
     $pro_code = htmlspecialchars($pro_code,ENT_QUOTES,'UTF-8');
     $pro_name = htmlspecialchars($pro_name,ENT_QUOTES,'UTF-8');
     $pro_price = htmlspecialchars($pro_price,ENT_QUOTES,'UTF-8');
