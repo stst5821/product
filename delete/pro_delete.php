@@ -25,15 +25,25 @@ try {
     $dbh = new PDO ($dsn,$user,$password);
     $dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-    $sql = 'select name from mst_product where code=?';
+    $sql = 'select name,gazou from mst_product where code=?';
     $stmt = $dbh->prepare($sql);
     $data[] = $pro_code; // $data[]を code=? の?に入れる。
     $stmt->execute($data);
 
     $rec = $stmt->fetch(PDO::FETCH_ASSOC);
     $pro_name = $rec['name'];
+    $pro_gazou_name = $rec['gazou'];
 
     $dbn = null;
+
+    if($pro_gazou_name == '')
+    {
+        $disp_gazou='';
+    }
+    else
+    {
+        $disp_gazou='<img src="./gazou/'.$pro_gazou_name.'">';
+    }
 
 }
 catch(Exception $e) 
@@ -52,15 +62,15 @@ catch(Exception $e)
     商品名<br>
     【 <?php print $pro_name; ?> 】
     <br>
+    <?php print $disp_gazou; ?>
     この商品を削除してよろしいですか？<br>
     <br>
 
     <form method="post" action="pro_delete_done.php">
         <input type="hidden" name="code" value="<?php print $pro_code; ?>">
-
+        <input type="hidden" name="gazou_name" value="<?php print $pro_gazou_name; ?>">
         <input type="button" onclick="history.back()" value="戻る">
         <input type="submit" value="OK">
-
     </form>
 
 </body>

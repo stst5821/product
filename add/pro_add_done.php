@@ -19,8 +19,9 @@ try {
     // 入力された値が$_POSTの配列に入る
     $pro_name = $_POST['name'];
     $pro_price = $_POST['price'];
+    $pro_gazou_name = $_POST['gazou_name'];
 
-    // $staff_nameに入力されたHTMLタグなどを無効化し、単なる文字列として出力して、また$staff_nameに入れ直している。
+    // $????_nameに入力されたHTMLタグなどを無効化し、単なる文字列として出力して、また$staff_nameに入れ直している。
     $pro_name = htmlspecialchars($pro_name,ENT_QUOTES,'UTF-8');
     $pro_price = htmlspecialchars($pro_price,ENT_QUOTES,'UTF-8');
 
@@ -32,10 +33,11 @@ try {
     $dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
     // データベースにINSERT
-    $sql = 'INSERT INTO mst_product(name,price) VALUES(?,?)';
+    $sql = 'INSERT INTO mst_product(name,price,gazou) VALUES(?,?,?)';
     $stmt = $dbh->prepare($sql);
     $data[] = $pro_name;
     $data[] = $pro_price;
+    $data[] = $pro_gazou_name;
     $stmt->execute($data);
 
     // データベースから切断
