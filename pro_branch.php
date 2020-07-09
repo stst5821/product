@@ -1,5 +1,14 @@
 <?php
 
+session_start();
+session_regenerate_id(true); // 合言葉を変える
+if(isset($_SESSION['login'])==false)
+{
+    print 'ログインされていません<br>';
+    print'<a href="../staff_login/staff_login.html">ログイン画面へ</a>';
+    exit();
+}
+
 // 参照
 
 if(isset($_POST['disp']) == true) {

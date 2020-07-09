@@ -1,3 +1,21 @@
+<?php
+session_start();
+session_regenerate_id(true); // 合言葉を変える
+if(isset($_SESSION['login'])==false)
+{
+    print 'ログインされていません<br>';
+    print'<a href="../staff_login/staff_login.html">ログイン画面へ</a>';
+    exit();
+}
+else
+{
+    print $_SESSION['staff_name'];
+    print 'さんログイン中<br>';
+    print '<br>';
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -42,7 +60,7 @@ try {
     }
     else
     {
-        $disp_gazou='<img src="./gazou/'.$pro_gazou_name.'">';
+        $disp_gazou='<img src="../gazou/'.$pro_gazou_name.'">';
     }
 
 }
@@ -67,8 +85,11 @@ catch(Exception $e)
     <br>
 
     <form method="post" action="pro_delete_done.php">
+
+        <!-- 商品コード と 画像の名前を送る -->
         <input type="hidden" name="code" value="<?php print $pro_code; ?>">
         <input type="hidden" name="gazou_name" value="<?php print $pro_gazou_name; ?>">
+
         <input type="button" onclick="history.back()" value="戻る">
         <input type="submit" value="OK">
     </form>

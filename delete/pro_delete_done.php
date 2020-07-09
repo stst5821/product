@@ -1,3 +1,21 @@
+<?php
+session_start();
+session_regenerate_id(true); // 合言葉を変える
+if(isset($_SESSION['login'])==false)
+{
+    print 'ログインされていません<br>';
+    print'<a href="../staff_login/staff_login.html">ログイン画面へ</a>';
+    exit();
+}
+else
+{
+    print $_SESSION['staff_name'];
+    print 'さんログイン中<br>';
+    print '<br>';
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -17,6 +35,7 @@
 
 try {
     $pro_code = $_POST['code'];
+    $pro_gazou_name = $_POST['gazou_name'];
 
     $dsn = 'mysql:dbname=shop;host=localhost;charset=utf8';
     $user = 'root';
@@ -31,6 +50,11 @@ try {
     $stmt->execute($data);
 
     $dbn = null;
+
+    if($pro_gazou_name != '')
+    {  
+        unlink('../gazou/'.$pro_gazou_name);
+    }
 }
 catch(Exception $e) 
 {
